@@ -1,12 +1,13 @@
 ## 📁 Assignments Overview
 
 <details>
-<summary> Assignment 1: STL</summary>
+<summary> Assignment 1: STL</summary>  
+
 **Explanations:**
 
 **Problem 2**  
 I have encountered a very similar problem in my ESC111 course.
-In that lab, I have prepared a solution which uses recursion but have a time complexity O(2^n). But after the lab, I learned a optimised DP solution which my friend explained me.    
+In that lab, I have prepared a solution which uses recursion but have a time complexity O(2^n). But after the lab, I learned an optimised DP solution which my friend explained me.    
 First, I created a vector array 'dp' of size n, initializing all its elements with 1.  
 (Here, dp[i] represents the length of longest increasing subsequence till i'th element.)  
 Then, implemented a nested loop of variables i (from 0 to n-1) and j (from 0 to i-1).  
