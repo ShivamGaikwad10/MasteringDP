@@ -4,10 +4,59 @@
    
 <summary> Assignment 1: STL</summary>  
 
-**Explanations:**
+**Explanations:**  
 
+**Problem 1**  
+Incomplete
+
+<details>
+<summary>Code :-</summary>
+  
+  ```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int funds = 0, profit = 0;
+    int p; cin >> p;
+    int k; cin >> k;
+    unordered_map <int,int> Cost, Sale, quantity_left;
+    vector <int> product_id(p);
+    for(int i = 0; i < p; i++) cin >> product_id[i];
+    for(int i = 0; i < p; i++){
+        quantity_left[product_id[i]] = k;
+    }
+    for(int i = 0; i < p; i++){
+        int cost;
+        cin >> cost;
+        Cost[product_id[i]] = cost;
+    }
+    for(int i = 0; i < p; i++){
+        int sale;
+        cin >> sale;
+        Sale[product_id[i]] = sale;
+    }
+    int n;
+    cin >> n;
+    for(int i = 0; i < n; i++){
+        int budget;
+        cin >> budget;
+        int m;
+        cin >> m;
+        vector < pair< pair<int,int>,int > > query(m);
+        for(int j = 0; j < m; j++){
+        int product, quantity, payoff;
+        cin >> product >> quantity >> payoff;
+        query[j] = {{product, quantity}, payoff};
+        }
+    }
+      return 0;
+}
+```
+</details>  
+-  -  -  -  -  -  -   
 **Problem 2**  
-## Explanation of the Optimized DP Solution
+## Explanation of the Solution
 
 - I have encountered a very similar problem in my ESC112 course. In that lab, I prepared a solution which uses recursion but has a time complexity of **O(2^n)**.
   - But after the lab, I learned an optimized **DP solution** which was mind blowing.
