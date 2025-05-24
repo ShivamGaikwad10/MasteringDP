@@ -7,7 +7,7 @@
 **Explanations:**  
 
 **Problem 1**  
-Incomplete
+I was unable to find logic for maximising payoff value. So, I am submitting my partial code.
 
 <details>
 <summary>Code :-</summary>
@@ -54,9 +54,12 @@ int main() {
 }
 ```
 </details>  
--  -  -  -  -  -  -   
-**Problem 2**  
-## Explanation of the Solution
+-  -  -  -  -  -  -  -  -  -  -  -  -  -   
+
+  
+**Problem 2 :**     
+
+  ## Explanation of the Solution
 
 - I have encountered a very similar problem in my ESC112 course. In that lab, I prepared a solution which uses recursion but has a time complexity of **O(2^n)**.
   - But after the lab, I learned an optimized **DP solution** which was mind blowing.
