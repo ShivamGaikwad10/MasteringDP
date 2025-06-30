@@ -190,3 +190,69 @@ int main() {
 ```
 </details>
 </details>
+
+<details>  
+   
+<summary> Assignment 3: DP(LCS and stocks)</summary>   
+  
+  **Explanations :**     
+  
+ ## **Problem 1:**  
+<details>
+                    <summary> Corrected Code :- (Hit me) </summary>  
+   
+```cpp
+int findlcs(string &s1,string &s2,int n,int m, vector<vector<int>>&dp){
+if(n<0||m<0) return 0;
+// else if((n==0||m==0) &&(s1[n]==s2[m])) return 1; not necessary
+if(dp[n][m] != -1) return dp[n][m];
+int a = 0, b = 0, c = 0;
+if(s1[n]==s2[m]){
+c = findlcs(s1,s2,n-1,m-1,dp);
+c += 1;
+return dp[n][m] = c;
+}
+a = findlcs(s1,s2,n-1,m,dp);
+b = findlcs(s1,s2,n,m-1,dp);
+dp[n][m] = max(a,b);
+
+return dp[n][m];
+}
+
+int longestCommonSubsequence(string s1, string s2) {
+int n = s1.size();
+int m = s2.size();
+vector <vector<int>> dp(n,vector<int>(m,-1));
+int len = findlcs(s1,s2,n-1,m-1,dp);
+return len;
+}  
+```
+</details>  
+The Code Written in the question was correct except the below part :    
+
+int a = 0, b = 0, c = 0;  
+a = findlcs(s1,s2,n-1,m,dp);  
+b = findlcs(s1,s2,n,m-1,dp);  
+c = findlcs(s1,s2,n-1,m-1,dp);  
+
+if(s1[n]==s2[m]){  
+a+=1;b+=1;c+=1;
+}<br>
+dp[n][m] = max(a,max(b,c));
+  
+Bugs :-    
+- The code was initializing a and b even though it was not needed. It should be done after the check s1[n]==s2[m].
+- if s1[n]==s2[m], the code was incrementing all a, b, c which is incorrect, Counter example : s1 = "mm", s2 = "m".<br>
+  In this example, it will be s1[1] == s2[0], so it will increment a by 1, also 'a' was first intialized with LCS(0,1) which is again 1,<br>
+  and hence it will display '2' as answer which is wrong.
+- Not a bug but improvement, string should be passed by reference.
+  
+Explaination of each steps (In Corrected Code):
+- In the LCS function, the 2d vector dp is initialized and passed into findlcs function.
+- In the findlcs function, as we are decrementing n or m in each step, there is high chance of n and m become negative,<br>
+  so a check for n < 0 and m < 0 is made.
+- A Check for n == 0 || m == 0 is also made, which is not necessary as the following steps in the code would handle it.
+- Then, if we already have the value of LCS(n,m) we return dp[n][m]. This is the key difference in recursion and DP.
+-If s1[n] == s2[m], it means the current characters match, so we add 1 to the LCS of the remaining substrings (n-1, m-1). Otherwise, we recursively compute the max LCS by either skipping one character from s1 or s2.
+- if(s1[n] != s2[m]) then we took max of LCS(n-1,m) and LCS(n,m-1) and return it.
+</details>
