@@ -255,4 +255,101 @@ Explaination of each steps (In Corrected Code):
 - Then, if we already have the value of LCS(n,m) we return dp[n][m]. This is the key difference in recursion and DP.
 -If s1[n] == s2[m], it means the current characters match, so we add 1 to the LCS of the remaining substrings (n-1, m-1). Otherwise, we recursively compute the max LCS by either skipping one character from s1 or s2.
 - if(s1[n] != s2[m]) then we took max of LCS(n-1,m) and LCS(n,m-1) and return it.
+## ""Problem 2 :**
+The optimal way would be to backtrack for all possible LCS and store them in the set container declaring (set `<strings>` ans).
+(Code will be uploaded ASAP)
+
+## **Problem 3 :**
+   <details>
+      <summary>Code :- (Hit me)</summary>  
+  
+   ```cpp
+class Solution {
+public:
+    int minInsertions(string s) {
+        int n = s.length();
+        string s2 = s;
+        reverse(s2.begin(),s2.end());
+        if(n == 1 || s == s2) return 0;
+       // cout << s << " " << s2 << endl;
+       // vector <vector <int>> dp(n+1,vector<int>(n+1,-1));
+        vector <int> curr(n+1), prev(n+1);
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= n; j++){
+                   if(s[i-1] == s2[j-1]) curr[j] = 1 + prev[j-1];
+                   else curr[j] = max(prev[j],curr[j-1]);
+            }
+            prev = curr;
+        }
+        return n - curr[n];
+    }
+};  
+```
+   </details>
+   The optimal way is to check LCS of the original and reversed string.
+Consider string "cdhakbnmauc" (Randomly written :)), In a way, we are finding the longest palindromic subsequence of the string, what we desired to aquire.<br>
+here "cabac" was the Longest palindromic subsequence, so we can build palindromic string around it.
+
+## **Problem 4 :**
+  My code is not completely correct, as it passes 1415/1811 testcases on leetcode. I tried my level's best to improve my code but couldn't.
+  <details>
+     <summary> Code :- (hit me) </summary>  
+       
+```cpp
+     class Solution {
+public:
+    bool isMatch(string s, string p) {
+        if(s == p) return true;
+        int n = s.length();
+        int n1 = p.length();
+        int cnt1 = 0, cnt2 = 0;
+        for(char c : p){
+            if(c == '*') cnt1++;
+            if(c == '?') cnt2++;
+        }
+        if(n < n1 - cnt1 ) return false;
+         vector <int> curr(n1+1), prev(n1+1);
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= n1; j++){
+                   if(s[i-1] == p[j-1]) curr[j] = 1 + prev[j-1];
+                   else curr[j] = max(prev[j],curr[j-1]);
+            }
+            prev = curr;
+        }
+        if(curr[n1] != n1 - (cnt1+cnt2)){
+            return false;
+        }
+        cout <<  1 << endl;
+        int ct1 = 0, ct2 = 0, j = 0;
+        for(int i = 0; i < n1; i++){
+            if(p[i] == '*') ct1++;
+          else  if(p[i] == '?') ct2++;
+          else{
+            int prev = j;
+            while(j < n && s[j] != p[i]){
+                j++;
+            }
+           // cout << i << " " << j << endl;
+            if((j > prev && ct2 > j - prev - 1) || (j == prev && ct2)){
+                return false;
+            }
+            if(!ct1 && ct2 != j - prev - 1 && j > prev){
+                return false;
+            }
+            ct1 = 0;
+            ct2 = 0;
+          }
+        }
+        if(j < n - 1){
+            if(ct2 > n - j || (!ct1 && !ct2)){
+                return false;
+            }
+        }
+        return true;
+    }
+};
+```
+  </details>
+Just written simple logic, first of all the p should be a subsequence of s.
+Then checking for each elements between the subsequence, are they possible to create with '?' or "*".     
 </details>
